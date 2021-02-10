@@ -19,7 +19,8 @@ jobs:
           rm -rf ..?* .[!.]* *
           git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" clone --recurse-submodules  "https://github.com/abcdesktopio/oc.docs.git" .
           ls -la
-          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" submodule update --init --recursive --remote
+          ls -la docs
+   
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -39,4 +40,4 @@ jobs:
           file: oc.docs
           push: true
           tags: |
-            abcdesktopio/oc.docs
+            abcdesktopio/oc.docs:dev
