@@ -18,6 +18,7 @@ jobs:
         run: |
           rm -rf ..?* .[!.]* *
           git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" clone --recurse-submodules  "https://github.com/abcdesktopio/oc.docs.git" .
+          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" submodule update --init --recursive --remote
           ls -la
           ls -la docs
    
