@@ -23,35 +23,23 @@ RUN apt-get update  -y  && \
 ####
 
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - 		\ 
-	&& apt-get clean
-
-# this package nodejs include npm 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends	\
-        nodejs  \
-	npm 	\
-        && apt-get clean
-
-RUN npm i -g swagger-jsdoc && \
-		npm i -g widdershins
-
-COPY docs /docs 
-RUN pip3 install wheel
-RUN pip3 install -r /docs/requirements.txt
-
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
 RUN cd /docs && \
-	make && \
-	cp -r opsdocs/site/* /var/www/html && \
-  rm -rf /docs
+    make docs && \
+    cp -r opsdocs/site/* /var/www/html && \
+    rm -rf /docs
 
 # uninstall 
-RUN pip3 freeze --local | xargs pip3 uninstall -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y \
-	python3-pip
-RUN DEBIAN_FRONTEND=noninteractive apt-get clean && apt-get autoremove  -y
+RUN pip3 freeze --local | xargs pip3 uninstall -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get remove -y \
+	python3-pip  \
+	python3-setuptools  \
+	make  \
+	git && \
+    DEBIAN_FRONTEND=noninteractive apt-get clean && \
+    DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
