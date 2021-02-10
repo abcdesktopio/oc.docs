@@ -17,8 +17,8 @@ jobs:
       - name: Clone sources
         run: |
           rm -rf ..?* .[!.]* *
-          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" clone "https://github.com/abcdesktopio/oc.docs.git" .
-          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" submodule update --init --recursive --remote
+          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" clone --recurse-submodules --remote-submodules "https://github.com/abcdesktopio/oc.docs.git" .
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
