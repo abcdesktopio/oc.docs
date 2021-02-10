@@ -41,4 +41,4 @@ jobs:
           file: oc.docs
           push: true
           tags: |
-            abcdesktopio/oc.docs:dev
+            abcdesktopio/oc.docs
