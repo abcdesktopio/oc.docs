@@ -26,9 +26,9 @@ RUN apt-get update  -y  && \
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-RUN cd /docs && make install
-RUN cd /docs && make docs
-RUN cp -r /docs/opsdocs/site/* /var/www/html && rm -rf /docs
+RUN cd docs && make install
+RUN cd docs && make docs
+RUN cp -r docs/opsdocs/site/* /var/www/html && rm -rf docs
 
 # uninstall 
 RUN pip3 freeze --local | xargs pip3 uninstall -y && \
